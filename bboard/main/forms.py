@@ -6,10 +6,6 @@ from django.core.exceptions import ValidationError
 from .models import SuperRubric, SubRubric
 
 
-
-
-
-
 class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True,
                              label='Адрес электронной почты')
@@ -72,3 +68,5 @@ class SubRubricForm(forms.ModelForm):
         fields = '__all__'
 
 
+class SearchForm(forms.Form):
+    keyword = forms.CharField(required=False, max_length=20, label='')
