@@ -2,11 +2,8 @@ from django.contrib import admin
 import datetime
 from .forms import SubRubricForm
 from .models import AdvUser
-
+from .models import Bb, AdditionalImage
 from .models import SuperRubric, SubRubric
-
-
-
 
 
 class NoactivatedFilter(admin.SimpleListFilter):
@@ -47,7 +44,6 @@ class AdvUserAdmin(admin.ModelAdmin):
     readonly_fields = ('last_login', 'date_joined',)
 
 
-
 admin.site.register(AdvUser, AdvUserAdmin)
 
 
@@ -68,3 +64,14 @@ class SubRubricAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SubRubric, SubRubricAdmin)
+
+
+class AdditionalImageInline(admin.TabularInline):
+    model = AdditionalImage
+
+
+class BbAdmin(admin.ModelAdmin):
+    list_display = ('rubric', 'title', 'content', 'author', 'created_at')
+    fields = (('rubric', 'author'), 'title', 'content', 'price',
+              'contacts', 'image', 'is_active')
+    inlines = (AdditionalImageInline,)
