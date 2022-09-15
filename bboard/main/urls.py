@@ -8,7 +8,8 @@ from .views import ChangeUserInfoView
 from .views import BBPasswordChangeView
 from .views import RegisterUserView, RegisterDoneView
 from .views import user_activate
-#from .views import by_rubric
+
+# from .views import by_rubric
 
 app_name = 'main'
 
@@ -18,11 +19,11 @@ urlpatterns = [
     path('accounts/register/', RegisterUserView.as_view(), name='register'),
     path('accounts/logout/', BBLogoutView.as_view(), name='logout'),
     path('accounts/password/change/', BBPasswordChangeView.as_view(), name='password_change'),
-    #path('accounts/profile/delete/', DeleteUserView.as_view(), name='profile_delete'),
+    # path('accounts/profile/delete/', DeleteUserView.as_view(), name='profile_delete'),
     path('accounts/profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
     path('accounts/profile/', profile, name='profile'),
     path('accounts/login', BBLoginView.as_view(), name='login'),
-    #path('<int:pk>/', by_rubric, name='by_rubric'),
+    # path('<int:pk>/', by_rubric, name='by_rubric'),
     path('<str:page>/', other_page, name='other'),
     path('', index, name='index')
 ]
