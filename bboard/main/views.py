@@ -17,7 +17,7 @@ from django.views.generic.base import TemplateView
 from .forms import ChangeUserInfoForm
 from .models import AdvUser
 from django.core.signing import BadSignature
-
+from .utilities import signer
 
 def index(request):
    return render(request, 'main/index.html')
