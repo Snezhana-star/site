@@ -1,10 +1,11 @@
 from django import forms
 
 from .models import AdvUser
+
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
-from django.forms import inlineformset_factory
 
+from .models import user_registrated
 
 
 class ChangeUserInfoForm(forms.ModelForm):
@@ -44,25 +45,16 @@ class RegisterUserForm(forms.ModelForm):
             raise ValidationError(errors)
 
     def save(self, commit=True):
-        user = super().save(commit=True)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
-        user.is_active = True
-        user.is_activated = True
+        user.is_active = False
+        user.is_activated = False
         if commit:
             user.save()
+        user_registrated.send(RegisterUserForm, instance=user)
         return user
 
     class Meta:
         model = AdvUser
         fields = ('username', 'email', 'password1', 'password2',
                   'first_name', 'last_name', 'send_messages')
-
-
-
-
-
-
-
-
-
-
