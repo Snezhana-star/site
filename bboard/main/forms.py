@@ -1,12 +1,13 @@
 from django import forms
 
 from .models import AdvUser
-from .models import SuperRubric, SubRubric
-
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
+from .models import SuperRubric, SubRubric
 
-from .models import user_registrated
+
+
+
 
 
 class ChangeUserInfoForm(forms.ModelForm):
@@ -46,13 +47,12 @@ class RegisterUserForm(forms.ModelForm):
             raise ValidationError(errors)
 
     def save(self, commit=True):
-        user = super().save(commit=False)
+        user = super().save(commit=True)
         user.set_password(self.cleaned_data['password1'])
-        user.is_active = False
-        user.is_activated = False
+        user.is_active = True
+        user.is_activated = True
         if commit:
             user.save()
-        user_registrated.send(RegisterUserForm, instance=user)
         return user
 
     class Meta:
@@ -70,3 +70,5 @@ class SubRubricForm(forms.ModelForm):
     class Meta:
         model = SubRubric
         fields = '__all__'
+
+

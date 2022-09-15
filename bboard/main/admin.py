@@ -2,18 +2,11 @@ from django.contrib import admin
 import datetime
 from .forms import SubRubricForm
 from .models import AdvUser
-from .utilities import send_activation_notification
+
 from .models import SuperRubric, SubRubric
 
 
-def send_activation_notifications(modeladmin, request, queryset):
-    for rec in queryset:
-        if not rec.is_activated:
-            send_activation_notification(rec)
-    modeladmin.message_user(request, 'Письма с оповещениями отправлены')
 
-
-send_activation_notifications.short_description = 'Отправка писем с оповещениями об активации'
 
 
 class NoactivatedFilter(admin.SimpleListFilter):
@@ -52,7 +45,7 @@ class AdvUserAdmin(admin.ModelAdmin):
         ('last_login', 'date_joined')
     )
     readonly_fields = ('last_login', 'date_joined',)
-    actions = (send_activation_notifications,)
+
 
 
 admin.site.register(AdvUser, AdvUserAdmin)
