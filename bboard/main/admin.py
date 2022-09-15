@@ -75,3 +75,6 @@ class BbAdmin(admin.ModelAdmin):
     fields = (('rubric', 'author'), 'title', 'content', 'price',
               'contacts', 'image', 'is_active')
     inlines = (AdditionalImageInline,)
+
+
+admin.site.register(Bb)
