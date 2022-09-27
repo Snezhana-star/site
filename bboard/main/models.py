@@ -15,6 +15,11 @@ class AdvUser(AbstractUser):
             bb.delete()
         super().delete(*args, **kwargs)
 
+    def is_author(self, bb):
+        if self.pk == bb.author.pk:
+            return True
+        return False
+
     class Meta(AbstractUser.Meta):
         pass
 
